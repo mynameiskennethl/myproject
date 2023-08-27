@@ -1,5 +1,5 @@
 const clientId = "d0f4cbf4c19b4b93812d939de41e9627";
-const redirectUri = "http://127.0.0.1:5500/MINE/index.html";
+const redirectUri = "https://mynameiskennethl.github.io/myproject/";
 
 function authorizeUser() {
     const scopes = 'user-read-private playlist-read-private';
