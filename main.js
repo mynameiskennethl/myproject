@@ -5,6 +5,7 @@ function authorizeUser() {
     const scopes = 'user-read-private playlist-read-private';
     const authUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${encodeURIComponent(scopes)}`;
     window.location = authUrl;
+    main();
 }
 
 async function getToken(authorizationCode) {
@@ -30,12 +31,6 @@ async function getToken(authorizationCode) {
 }
 
 async function getUserPlaylists() {
-    const authorizationCode = new URLSearchParams(window.location.search).get('code');
-    if (!authorizationCode) {
-        authorizeUser();
-        return;
-    }
-
     const accessToken = await getToken(authorizationCode);
     
     const playlistsUrl = 'https://api.spotify.com/v1/me/playlists';
@@ -51,4 +46,7 @@ async function getUserPlaylists() {
     console.log(data);
 }
 
-getUserPlaylists();
+function main(){
+    getToken();
+    getUserPlaylists();
+}
