@@ -1,7 +1,65 @@
 <script src="main.js"></script>
 
+<style>
+    body{
+        display: grid;
+        grid-template-columns: 1fr 4fr 1fr;
+        grid-template-rows: 4fr 1fr;
+    }
+    .playlistinfo{
+        display: grid;
+        grid-template-columns: 1fr 5fr;
+        align-items: center;
+    }
+    .playlistinfo p{
+        margin-top: 2vh;
+    }
+    .playlistinfo:hover{
+        cursor: pointer;
+        background-color: aqua;
+    }
+    .playlists{
+        display: grid;
+        grid-row-start: span 2;
+        overflow-y: scroll;
+    }
+    .playlistcover{
+        height: 7vh;
+        width: 7vh;
+        object-fit: cover;
+        align-items: center;
+        margin-right: 2vh;
+    }
+    .similarsongs{
+        grid-row-start: span 2;
+    }
+    .tracks{
+        overflow-y: scroll;
+    }
+    .song{
+        display: grid;
+        grid-template-columns: 7vh 5fr;
+    }
+    .songimages{
+        width: 6vh;
+        height: auto;
+    }
+</style>
+
 <html>
+    
+
     <body>
-        <button onclick="authorizeUser()">Login</button>
+        <div class="playlists" id="playlistholder">
+
+        </div>
+
+        <div class="tracks" id="tracksholder">
+
+        </div>
+        <div class="similarsongs"></div>
+        <div class="menu">
+            <button onclick="authorizeUser()" id="loginbutton">Login</button>
+        </div>
     </body>
 </html>
