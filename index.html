@@ -1,10 +1,8 @@
-<script src="main.js"></script>
-
 <style>
     body{
         display: grid;
         grid-template-columns: 1fr 4fr 1fr;
-        grid-template-rows: 4fr 1fr;
+        grid-template-rows: 3fr 2fr;
     }
     .playlistinfo{
         display: grid;
@@ -40,6 +38,10 @@
         display: grid;
         grid-template-columns: 7vh 5fr;
     }
+    .song:hover{
+        cursor: pointer;
+        background-color: aqua;
+    }
     .songimages{
         width: 6vh;
         height: auto;
@@ -50,9 +52,7 @@
     
 
     <body>
-        <div class="playlists" id="playlistholder">
-
-        </div>
+        <div class="playlists" id="playlistholder"> </div>
 
         <div class="tracks" id="tracksholder">
 
@@ -60,6 +60,12 @@
         <div class="similarsongs"></div>
         <div class="menu">
             <button onclick="authorizeUser()" id="loginbutton">Login</button>
+            <select id="selector"></select><button onclick="addgenre()">add genre</button><button onclick="excludegenre()">exclude genre</button>
+            <button>Generate Queue</button>
+            <div id="addedgenre">current genres:</div>
+            <div id="excludedgenre">excluded genres:</div>
         </div>
     </body>
 </html>
+
+<script src="main.js"></script>
