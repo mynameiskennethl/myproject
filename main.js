@@ -1,8 +1,10 @@
 const clientId = "d0f4cbf4c19b4b93812d939de41e9627";
 const redirectUri = "https://mynameiskennethl.github.io/myproject/";
 const clientSecret = '5df8981440284ae88675ab4175135e58';
-let authorizationCode = ''
-let accessToken = ''
+let authorizationCode = '';
+let accessToken = '';
+let selectedgenres = [];
+let excludedgenres = [];
 
 function authorizeUser() {
     const scopes = 'user-read-private playlist-read-private user-modify-playback-state user-read-currently-playing playlist-read-collaborative';
@@ -10,13 +12,37 @@ function authorizeUser() {
     window.location = authUrl;
 }
 
+function checkvalidsongs(selector){
+    let songinfo = []
+    let songlist = document.getElementsByClassName('song')
+    for(let i=0;i<songlist.length;i++){
+        let song = {id:songlist[i].getAttribute('id'), genres:songlist[i].getAttribute('genres')};
+        songinfo.push(song);     
+    }
+    
+    for(let i=0;i<songinfo.length;i++){
+        if(songinfo[i].genres.split(',').includes(selector)){
+            console.log(document.getElementById(songinfo[i].id))
+        }
+    }
+}
+
 function addgenre(){
     let selector = document.getElementById('selector').value;
-    document.getElementById('addedgenre').innerHTML += selector +', '
+    if(!selectedgenres.includes(selector) && !excludedgenres.includes(selector)){
+        selectedgenres.push(selector);
+        document.getElementById('addedgenre').innerHTML += `<li>${selector}</li>`;
+    }
+    checkvalidsongs(selector);
 }
 
 function excludegenre(){
-
+    let selector = document.getElementById('selector').value;
+    if(!excludedgenres.includes(selector) && !selectedgenres.includes(selector)){
+        excludedgenres.push(selector);
+        document.getElementById('excludedgenre').innerHTML += `<li>${selector}</li>`;
+    }
+    checkvalidsongs(selector);
 }
 
 function displayAvailableGenre(){
@@ -59,7 +85,7 @@ async function displayTracks(songs){
     for(let i=0;i<songs.length;i++){
         if(songs[i] != null && songs[i].is_local != true){
             let genres = await getGenre(songs[i].album.artists[0].id)
-            document.getElementById('tracksholder').innerHTML += `<div class="song" genres="${genres}"><image class="songimages" src="${songs[i].album.images[0].url}"></image><div class="songdescription">${songs[i].name}<br>By: ${songs[i].artists[0].name}</div></div>`
+            document.getElementById('tracksholder').innerHTML += `<div class="song" genres="${genres}" id="song${i}"><image class="songimages" src="${songs[i].album.images[0].url}"></image><div class="songdescription">${songs[i].name}<br>By: ${songs[i].artists[0].name}</div></div>`
         }
     }
     displayAvailableGenre()
